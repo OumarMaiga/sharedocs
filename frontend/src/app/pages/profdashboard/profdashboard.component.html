@@ -1,0 +1,91 @@
+<app-prof-navbar></app-prof-navbar>
+
+<div class="flex min-h-screen bg-gray-50 pt-16">
+  <!-- Sidebar -->
+  <app-prof-sidebar class="w-64 bg-gray-900 text-white shadow-lg"></app-prof-sidebar>
+
+  <!-- Contenu principal -->
+  <main class="flex-1 p-8">
+    <div class="max-w-6xl mx-auto">
+      <!-- Titre -->
+      <h2 class="text-3xl font-bold text-gray-800 mb-2">Tableau de bord</h2>
+      <p class="text-gray-600 mb-8">
+        Bienvenue, <strong>{{ username }}</strong>
+      </p>
+
+      <!-- Statistiques : 4 cartes -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Carte Modules -->
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-xl transition duration-300 flex flex-col items-center">
+          <div class="mb-3 flex items-center gap-2 text-gray-700">
+            <i class="bi bi-book-fill text-2xl" style="color: #d4af37;"></i>
+            <span class="font-bold text-lg">Total Modules</span>
+          </div>
+          <!-- Chart -->
+          <div class="relative">
+            <canvas id="modulesChart" class="h-20 w-20"></canvas>
+            <!-- Valeur au centre -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <p class="text-lg font-semibold text-gray-800">
+                {{ modules.length }}
+              </p>
+            </div>
+          </div>
+          <!-- Sous-texte -->
+          <p class="text-sm text-gray-500 mt-2">Mis à jour récemment</p>
+        </div>
+
+        <!-- Carte Classes -->
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-xl transition duration-300 flex flex-col items-center">
+          <div class="mb-3 flex items-center gap-2 text-gray-700">
+            <i class="bi bi-people-fill text-2xl" style="color: #d4af37;"></i>
+            <span class="font-bold text-lg">Total Classes</span>
+          </div>
+          <div class="relative">
+            <canvas id="classesChart" class="h-20 w-20"></canvas>
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <p class="text-lg font-semibold text-gray-800">
+                {{ classes.length }}
+              </p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 mt-2">Mis à jour récemment</p>
+        </div>
+
+        <!-- Carte Projets -->
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-xl transition duration-300 flex flex-col items-center">
+          <div class="mb-3 flex items-center gap-2 text-gray-700">
+            <i class="bi bi-folder2-open text-2xl" style="color: #d4af37;"></i>
+            <span class="font-bold text-lg">Total Projets</span>
+          </div>
+          <div class="relative">
+            <canvas id="projetsChart" class="h-20 w-20"></canvas>
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <p class="text-lg font-semibold text-gray-800">
+                {{ projets.length }}
+              </p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 mt-2">Mis à jour récemment</p>
+        </div>
+
+        <!-- Carte Soumissions -->
+        <div class="bg-white p-4 rounded-lg shadow hover:shadow-xl transition duration-300 flex flex-col items-center">
+          <div class="mb-3 flex items-center gap-2 text-gray-700">
+            <i class="bi bi-file-earmark-arrow-up text-2xl" style="color: #d4af37;"></i>
+            <span class="font-bold text-lg">Total Soumissions</span>
+          </div>
+          <div class="relative">
+            <canvas id="soumissionsChart" class="h-20 w-20"></canvas>
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <p class="text-lg font-semibold text-gray-800">
+                {{ soumissions.length }}
+              </p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-500 mt-2">Mis à jour récemment</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

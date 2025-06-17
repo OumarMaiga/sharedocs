@@ -1,0 +1,16 @@
+<div class="container">
+    <h2>Liste des modules</h2>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+    <ul *ngIf="modules.length > 0; else noModules">
+      <li *ngFor="let module of modules">
+        <strong>{{ module.titre }}</strong> - {{ module.description }} <br>
+        <small>Créé le : {{ module.date_creation | date:'short' }}</small>
+      </li>
+    </ul>
+    <ng-template #noModules>
+      <p>Aucun module trouvé.</p>
+    </ng-template>
+  </div>
+  

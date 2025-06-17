@@ -1,0 +1,52 @@
+// Variables de couleurs pour un style chaud et moderne
+$sidebar-bg: #ffffff;           // Fond clair
+$sidebar-border: #e0e0e0;         // Bordure discrète
+$link-text-color: #333333;       // Texte sombre
+$link-hover-bg: #f9f2e7;         // Fond au survol en beige doux
+$link-hover-text: #d4a373;       // Accent doré pour le texte au survol
+$icon-color: #d4a373;            // Même accent pour les icônes
+
+.sidebar {
+  background-color: $sidebar-bg;
+  border-right: 1px solid $sidebar-border;
+  padding: 1.5rem;
+  min-height: 100vh;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      margin-bottom: 1rem;
+
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        color: $link-text-color;
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        i {
+          font-size: 1.5rem;
+          color: $icon-color;
+          transition: color 0.3s ease;
+        }
+
+        &:hover {
+          background-color: $link-hover-bg;
+          color: $link-hover-text;
+
+          i {
+            color: $link-hover-text;
+          }
+        }
+      }
+    }
+  }
+}
+

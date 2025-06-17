@@ -1,0 +1,51 @@
+<aside [ngClass]="{'w-16': isCollapsed, 'w-64': !isCollapsed}" class="fixed top-0 left-0 bottom-0 bg-slate-800 text-slate-200 p-4 overflow-y-auto transition-all duration-300">
+  <!-- Bouton de bascule -->
+  <div class="flex justify-end">
+    <button (click)="toggleSidebar()" class="text-slate-300 hover:text-white focus:outline-none">
+      <svg *ngIf="!isCollapsed" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Flèche vers la gauche -->
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      <svg *ngIf="isCollapsed" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <!-- Flèche vers la droite -->
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- En-tête/Titre -->
+  <div class="mt-4 mb-8" *ngIf="!isCollapsed">
+    <h2 class="text-2xl font-bold text-slate-100">Dashboard</h2>
+  </div>
+
+  <!-- Menu de navigation -->
+  <nav class="flex-1">
+    <ul class="space-y-4">
+      <li>
+        <a routerLink="/profil" class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition">
+          <i class="fa-solid fa-user text-xl mr-2 text-[#d4af37]"></i>
+          <span *ngIf="!isCollapsed" class="text-base font-medium">Profil</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/prof-classes" class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition">
+          <i class="fa-solid fa-chalkboard-user text-xl mr-2 text-[#d4af37]"></i>
+          <span *ngIf="!isCollapsed" class="text-base font-medium">Mes Classes</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/prof-modules" class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition">
+          <i class="fa-solid fa-book text-xl mr-2 text-[#d4af37]"></i>
+          <span *ngIf="!isCollapsed" class="text-base font-medium">Mes Modules</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/creer-projet" class="flex items-center p-3 rounded-lg hover:bg-slate-700 transition">
+          <i class="fa-solid fa-circle-plus text-xl mr-2 text-[#d4af37]"></i>
+          <span *ngIf="!isCollapsed" class="text-base font-medium">Créer Projet</span>
+        </a>
+      </li>
+      <!-- Ajoutez d'autres liens si nécessaire -->
+    </ul>
+  </nav>
+</aside>

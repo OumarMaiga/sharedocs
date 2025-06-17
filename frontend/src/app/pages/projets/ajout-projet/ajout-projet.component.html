@@ -1,0 +1,48 @@
+<div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Créer un nouveau projet</h2>
+
+  <div class="mb-4">
+    <label class="block text-gray-700 font-semibold mb-2">Titre du projet :</label>
+    <input [(ngModel)]="titre" type="text" placeholder="Titre du projet"
+      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-gray-700 font-semibold mb-2">Description :</label>
+    <textarea [(ngModel)]="description" placeholder="Description du projet"
+      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"></textarea>
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-gray-700 font-semibold mb-2">Date limite :</label>
+    <input [(ngModel)]="date_limite" type="datetime-local"
+      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-gray-700 font-semibold mb-2">Choisir un module :</label>
+    <select [(ngModel)]="moduleId" (change)="chargerEtudiants()"
+      class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+      <option *ngFor="let module of modules" [value]="module.id">{{ module.titre }}</option>
+    </select>
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-gray-700 font-semibold mb-2">Assigner des étudiants :</label>
+    <div class="space-y-2">
+      <p *ngIf="etudiants.length === 0" class="text-red-500 text-sm">⚠️ Aucun étudiant trouvé pour ce module.</p>
+      <div *ngFor="let etudiant of etudiants" class="flex items-center space-x-3">
+        <input type="checkbox" class="h-5 w-5 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500"
+          (change)="toggleEtudiantSelection($event, etudiant.id)">
+        <span class="text-gray-800">{{ etudiant.username }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center">
+    <button (click)="creerProjet()"
+      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition">
+      Créer Projet
+    </button>
+  </div>
+</div>

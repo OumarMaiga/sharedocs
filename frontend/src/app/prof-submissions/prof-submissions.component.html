@@ -1,0 +1,85 @@
+<app-prof-navbar></app-prof-navbar>
+
+<div class="flex pt-16 min-h-screen bg-gray-50">
+  <!-- Sidebar -->
+  <app-prof-sidebar class="w-64 bg-gray-900 text-white shadow-lg"></app-prof-sidebar>
+
+  <!-- Contenu principal -->
+  <main class="flex-1 p-6">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+      
+      <!-- Titre -->
+      <h2 class="text-3xl font-bold text-gray-800 mb-6">
+        Soumissions pour le module {{ moduleId }}
+      </h2>
+
+      <!-- Message de chargement -->
+      <div *ngIf="isLoading" class="flex justify-center items-center py-4 text-gray-500 text-lg">
+        <i class="bi bi-hourglass-split text-[#d4af37]"></i>
+        <span class="ml-2">Chargement...</span>
+        <svg class="animate-spin ml-2 h-5 w-5 text-[#d4af37]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+        </svg>
+      </div>
+
+      <!-- Message d'erreur -->
+      <div *ngIf="errorMessage" class="flex items-center justify-center gap-2 text-center text-red-600 bg-red-100 p-3 rounded-lg">
+        <i class="bi bi-x-circle"></i>
+        <span>{{ errorMessage }}</span>
+      </div>
+
+      <!-- Liste des soumissions -->
+      <div *ngIf="submissions && submissions.length > 0 && !isLoading">
+        <ul class="space-y-4 mt-4">
+          <li *ngFor="let submission of submissions" class="bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-4">
+            <div class="flex flex-col">
+              <h3 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+                <i class="bi bi-file-earmark-text text-xl text-[#d4af37]"></i>
+                {{ submission.projet.titre }}
+                <span class="text-sm text-gray-500">(v{{ submission.version }})</span>
+              </h3>
+              <p class="text-gray-600 mt-2">Date de soumission : {{ submission.date_soumission | date:'medium' }}</p>
+              <p class="text-gray-600 mt-1">Soumis par : {{ submission.etudiant.username }}</p>
+              <p class="text-gray-600 mt-1">
+                Fichier :
+                <a [href]="'http://127.0.0.1:8000' + submission.fichier" target="_blank" class="text-[#d4af37] hover:underline">
+                  Télécharger
+                </a>
+              </p>
+
+              <!-- Note et feedback existants -->
+              <div *ngIf="submission.note !== null" class="mt-2 text-gray-700">
+                <p class="text-sm">Note : {{ submission.note }}</p>
+                <p class="text-sm">Feedback : {{ submission.feedback }}</p>
+              </div>
+
+              <!-- Formulaire de notation -->
+              <div *ngIf="submission.note === null" class="mt-4">
+                <label class="block text-sm font-medium text-gray-700">Note (sur 20)</label>
+                <input type="number" min="0" max="20" [(ngModel)]="submission.newNote" 
+                       class="w-full p-2 border rounded-lg focus:ring focus:ring-[#d4af37] outline-none">
+                
+                <label class="block text-sm font-medium text-gray-700 mt-2">Feedback</label>
+                <textarea [(ngModel)]="submission.newFeedback"
+                          class="w-full p-2 border rounded-lg focus:ring focus:ring-[#d4af37] outline-none"
+                          rows="3"></textarea>
+
+                <button (click)="noterSoumission(submission)" 
+                        class="mt-3 px-4 py-2 bg-[#d4af37] text-white font-semibold rounded-lg hover:bg-[#b89c30] transition">
+                  Noter
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Message si aucune soumission disponible -->
+      <p *ngIf="submissions.length === 0 && !isLoading" class="text-center text-gray-500 py-6">
+        <i class="bi bi-inbox text-xl"></i>
+        <span>Aucune soumission trouvée pour ce module.</span>
+      </p>
+    </div>
+  </main>
+</div>

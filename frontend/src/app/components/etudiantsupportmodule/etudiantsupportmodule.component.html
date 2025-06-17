@@ -1,0 +1,87 @@
+<app-navbar></app-navbar>
+
+<div class="flex pt-16 min-h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <app-sidebar class="w-64 bg-gray-900 text-white shadow-xl"></app-sidebar>
+
+  <!-- Contenu principal -->
+  <main class="flex-1 p-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-6">
+      <!-- Titre principal -->
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+        <i class="ph ph-folder-simple text-2xl text-gray-600"></i>
+        Supports du Module
+      </h2>
+
+      <!-- Indicateur de chargement -->
+      <div *ngIf="isLoading" class="text-center text-gray-500 py-4">
+        <i class="ph ph-clock text-lg animate-spin inline-block mr-2"></i>
+        Chargement des supports...
+      </div>
+
+      <!-- Message d'erreur -->
+      <div *ngIf="errorMessage" class="text-center text-red-500 font-semibold bg-red-100 p-3 rounded-lg shadow-md">
+        <i class="ph ph-warning text-lg inline-block mr-1"></i>
+        {{ errorMessage }}
+      </div>
+
+      <!-- Liste des supports -->
+      <div *ngIf="!isLoading && supports.length > 0; else noSupports" class="mt-6">
+        <ul class="space-y-4">
+          <li *ngFor="let support of paginatedSupports" 
+              class="bg-white border border-gray-200 shadow-sm rounded-lg p-4 hover:shadow-lg transition-transform transform hover:scale-[1.02]">
+            <div class="flex justify-between items-center">
+              <div class="flex items-center gap-3">
+                <i class="ph ph-book text-xl text-gray-600"></i>
+                <span class="text-lg font-semibold text-gray-800">
+                  {{ support.titre }}
+                </span>
+              </div>
+              <a [href]="'http://127.0.0.1:8000' + support.fichier" 
+                 target="_blank"
+                 class="flex items-center gap-2 bg-gray-700 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition-transform transform hover:scale-105 shadow-md">
+                <i class="ph ph-download text-base"></i> Télécharger
+              </a>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Pagination -->
+        <div class="mt-8 flex items-center justify-between">
+          <button (click)="prevPage()" 
+                  [disabled]="pageIndex === 0"
+                  class="px-4 py-2 rounded bg-gray-300 text-gray-700 hover:bg-gray-400 transition disabled:opacity-50 disabled:cursor-not-allowed">
+            <i class="ph ph-arrow-left"></i>
+            Précédent
+          </button>
+          <span class="text-sm text-gray-600">
+            Page {{ pageIndex + 1 }} / {{ totalPages }}
+          </span>
+          <button (click)="nextPage()" 
+                  [disabled]="pageIndex >= totalPages - 1"
+                  class="px-4 py-2 rounded bg-gray-300 text-gray-700 hover:bg-gray-400 transition disabled:opacity-50 disabled:cursor-not-allowed">
+            Suivant
+            <i class="ph ph-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Aucun support disponible -->
+      <ng-template #noSupports>
+        <p class="text-gray-500 italic text-center flex items-center justify-center gap-3 mt-8">
+          <i class="ph ph-envelope-open text-xl"></i>
+          Aucun support disponible pour ce module.
+        </p>
+      </ng-template>
+
+      <!-- Bouton Retour -->
+      <div class="mt-10">
+        <a routerLink="/modules"
+           class="inline-flex items-center gap-3 bg-gray-700 text-white px-5 py-3 rounded-lg text-sm hover:bg-gray-800 transition-transform transform hover:scale-105 shadow-md">
+          <i class="ph ph-arrow-left text-base"></i>
+          Retour aux modules
+        </a>
+      </div>
+    </div>
+  </main>
+</div>

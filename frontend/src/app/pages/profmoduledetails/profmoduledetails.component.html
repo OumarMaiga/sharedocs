@@ -1,0 +1,107 @@
+<app-prof-navbar></app-prof-navbar> <!-- ✅ Navbar incluse -->
+<div class="flex min-h-screen bg-gray-50">
+  <app-prof-sidebar class="w-64 bg-gray-900 text-white shadow-lg"></app-prof-sidebar> <!-- ✅ Sidebar incluse -->
+
+  <!-- ✅ Contenu principal -->
+  <main class="flex-1 p-6 bg-gray-100">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+
+      <!-- Barre de recherche / actions -->
+      <div class="mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <!-- Barre de recherche -->
+        <div class="relative w-full md:max-w-sm">
+          <input
+            type="text"
+            placeholder="Rechercher un support..."
+            class="w-full pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none
+                   focus:ring-2 focus:ring-[#d4af37] text-gray-700 bg-gray-100"
+          />
+          <i class="bi bi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+        </div>
+        <!-- Autres actions (exemple: refresh, etc.) -->
+        <div class="flex gap-3">
+          <button
+            class="bg-gray-800 text-gray-200 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-gray-700 transition"
+          >
+            <i class="bi bi-arrow-repeat text-[#d4af37]"></i>
+            <span class="text-sm">Rafraîchir</span>
+          </button>
+          <button
+            class="bg-gray-800 text-gray-200 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-gray-700 transition"
+          >
+            <i class="bi bi-funnel text-[#d4af37]"></i>
+            <span class="text-sm">Filtrer</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ✅ Loader -->
+      <div *ngIf="isLoading" class="text-gray-500 text-center">
+        ⏳ Chargement des détails du module...
+      </div>
+
+      <!-- ✅ Erreur -->
+      <div *ngIf="errorMessage" class="text-red-600 text-center">
+        {{ errorMessage }}
+      </div>
+
+      <!-- ✅ Contenu du module -->
+      <div *ngIf="moduleDetails && !isLoading">
+        <!-- ✅ Titre du module -->
+        <h2 class="text-3xl font-semibold text-gray-800 flex items-center gap-2">
+          <i class="bi bi-book text-[#d4af37] text-2xl"></i>
+          <span>{{ moduleDetails?.titre }}</span>
+        </h2>
+        <p class="text-gray-600 mt-2 italic">{{ moduleDetails?.description }}</p>
+
+        <!-- ✅ Liste des supports -->
+        <h3 class="mt-6 text-lg font-semibold text-gray-700 flex items-center gap-2">
+          <i class="bi bi-folder text-[#d4af37] text-xl"></i>
+          <span>Supports de cours</span>
+        </h3>
+
+        <div
+          *ngIf="!moduleDetails?.supports || moduleDetails?.supports.length === 0"
+          class="text-gray-500 mt-2 italic"
+        >
+          📭 Aucun support disponible.
+        </div>
+
+        <ul
+          *ngIf="moduleDetails?.supports && moduleDetails?.supports.length > 0"
+          class="mt-3 space-y-3"
+        >
+          <li
+            *ngFor="let support of moduleDetails?.supports"
+            class="flex justify-between items-center bg-white border border-gray-200 shadow-sm rounded-lg p-3
+                   hover:bg-gray-50 transition duration-300"
+          >
+            <div class="flex items-center">
+              <i class="bi bi-file-earmark-text text-xl text-[#d4af37]"></i>
+              <span class="ml-3 text-gray-800 font-medium">{{ support.titre }}</span>
+            </div>
+            <a
+              [href]="support.fichier"
+              target="_blank"
+              class="bg-[#d4af37] text-white px-3 py-1 rounded-lg text-sm
+                     hover:bg-[#c5992f] transition duration-300"
+            >
+              <i class="bi bi-download"></i> Télécharger
+            </a>
+          </li>
+        </ul>
+
+        <!-- ✅ Bouton Ajouter un Support -->
+        <div class="mt-6 text-center">
+          <button
+            [routerLink]="['/prof-modules', moduleId, 'ajouter-support']"
+            class="bg-[#d4af37] text-white px-6 py-3 rounded-lg font-medium
+                   hover:bg-[#c5992f] transition duration-300"
+          >
+            ➕ Ajouter un support
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

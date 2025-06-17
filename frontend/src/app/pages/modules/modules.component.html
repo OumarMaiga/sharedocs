@@ -1,0 +1,78 @@
+<app-navbar></app-navbar>
+
+<div class="flex pt-20 min-h-screen bg-gray-50">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Contenu principal -->
+  <div class="flex-grow p-8 ml-64">
+    <!-- Titre de la page -->
+    <h2 class="text-3xl font-bold mb-6 text-gray-900 flex items-center gap-3">
+      <i class="ph ph-books text-3xl text-gray-700"></i>
+      Mes Modules
+    </h2>
+
+    <!-- Barre de recherche -->
+    <div class="mb-6 flex gap-3 items-center bg-white p-4 rounded-lg shadow-sm border border-gray-200">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm"
+        placeholder="Rechercher un module..." 
+        class="border border-gray-300 p-3 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-gray-400" 
+      />
+      <button 
+        (click)="searchModules()"
+        class="bg-gray-800 text-white px-5 py-3 rounded-lg hover:bg-gray-700 transition font-semibold flex items-center gap-2"
+      >
+        <i class="ph ph-magnifying-glass text-lg"></i> Rechercher
+      </button>
+    </div>
+
+    <!-- Chargement -->
+    <div *ngIf="isLoading" class="text-center text-gray-500">
+      <i class="ph ph-clock text-xl animate-spin inline-block mr-2"></i>
+      Chargement des modules...
+    </div>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="text-center text-red-600 font-semibold py-4">
+      <i class="ph ph-warning text-lg inline-block mr-1"></i>
+      {{ errorMessage }}
+    </div>
+
+    <!-- Liste des modules -->
+    <ul *ngIf="!isLoading && modules.length > 0; else noModules" 
+        class="divide-y divide-gray-200 bg-white rounded-lg shadow-sm border border-gray-300">
+      <li 
+        *ngFor="let mod of modules"
+        class="py-5 px-6 flex justify-between items-center hover:bg-gray-100 transition"
+      >
+        <div>
+          <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <i class="ph ph-folder text-gray-700"></i> {{ mod.titre }}
+          </h3>
+          <p class="text-sm text-gray-600">
+            {{ mod.description && mod.description.trim() !== '' 
+               ? mod.description 
+               : 'Aucune description disponible' }}
+          </p>
+        </div>
+        <a 
+          [routerLink]="['/etudiantsupportmodule', mod.id]" 
+          class="inline-flex items-center text-gray-800 font-semibold hover:text-gray-600 transition"
+        >
+          <i class="ph ph-folder-simple-open text-xl mr-2"></i>
+          Voir les supports
+        </a>
+      </li>
+    </ul>
+
+    <!-- Aucun module -->
+    <ng-template #noModules>
+      <p class="text-gray-500 italic text-center flex items-center justify-center gap-2 mt-6">
+        <i class="ph ph-envelope-open text-xl"></i>
+        Aucun module disponible.
+      </p>
+    </ng-template>
+  </div>
+</div>

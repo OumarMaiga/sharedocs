@@ -1,0 +1,93 @@
+<app-navbar></app-navbar>
+
+<div class="flex bg-gray-100 pt-16 h-screen">
+  <!-- ✅ Sidebar -->
+  <app-sidebar class="w-64 bg-gray-900 text-white shadow-lg"></app-sidebar>
+
+  <!-- ✅ Contenu principal -->
+  <main class="flex-1 flex flex-col px-6 py-4 h-[calc(100vh-64px)]">
+    <div class="bg-white shadow-md rounded-lg flex flex-col border border-gray-200 flex-grow">
+      
+      <!-- ✅ Titre -->
+      <div class="p-3 border-b border-gray-300 bg-gray-50">
+        <h2 class="text-sm font-semibold text-gray-800 flex items-center gap-2">
+          <i class="fas fa-comments text-gray-600"></i> Discussion
+        </h2>
+      </div>
+
+      <!-- ✅ Indicateur de chargement -->
+      <div *ngIf="isLoading" class="flex justify-center items-center py-4">
+        <i class="fas fa-spinner fa-spin text-gray-600 text-lg"></i>
+      </div>
+
+      <!-- ✅ Message d'erreur -->
+      <div *ngIf="errorMessage" class="text-center text-red-600 bg-red-100 border border-red-400 p-2 mx-4 mt-2 rounded-md">
+        <i class="fas fa-exclamation-circle mr-1"></i> {{ errorMessage }}
+      </div>
+
+      <!-- ✅ Zone de discussion -->
+      <div class="flex-grow overflow-y-auto px-4 py-2 space-y-3">
+        <div *ngFor="let msg of messages; let i = index"
+             class="flex w-full"
+             [ngClass]="{'justify-end': i % 2 === 0, 'justify-start': i % 2 !== 0}">
+          <div
+            [ngClass]="{
+              'bg-yellow-100 text-gray-800 shadow-md': i % 2 === 0,
+              'bg-gray-200 text-gray-800 shadow-md': i % 2 !== 0
+            }"
+            class="max-w-xs p-3 rounded-lg text-sm leading-tight">
+            
+            <!-- Nom d'utilisateur -->
+            <div *ngIf="i % 2 !== 0" class="text-[10px] font-bold text-yellow-600 mb-1">
+              {{ msg.auteur_username }}
+            </div>
+
+            <!-- Texte du message -->
+            <p class="whitespace-pre-wrap">
+              {{ msg.texte }}
+            </p>
+
+            <!-- Fichier joint -->
+            <div *ngIf="msg.fichier" class="mt-1">
+              <a [href]="msg.fichier" target="_blank"
+                 class="underline text-[10px] text-yellow-700 hover:text-yellow-500 transition">
+                📁 Télécharger le fichier
+              </a>
+            </div>
+
+            <!-- Date d'envoi -->
+            <div class="text-right mt-1 text-[10px] text-gray-500">
+              {{ msg.date_envoi | date:'short' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ✅ Zone d'envoi -->
+      <div class="border-t border-gray-300 p-3 bg-gray-50">
+        <div class="flex items-center gap-2">
+          <input [(ngModel)]="newMessage"
+                 class="flex-grow border border-gray-300 p-2 rounded-md focus:ring focus:ring-yellow-500 outline-none text-sm"
+                 placeholder="Écrire un message...">
+        </div>
+        <div class="flex items-center gap-3 mt-2 text-sm">
+          <!-- Joindre un fichier -->
+          <label class="flex items-center gap-1 cursor-pointer text-yellow-700 hover:text-yellow-600 transition">
+            <input type="file" (change)="onFileSelected($event, 'file')" class="hidden">
+            <i class="fas fa-paperclip"></i> Fichier
+          </label>
+          <!-- Joindre un audio -->
+          <label class="flex items-center gap-1 cursor-pointer text-yellow-700 hover:text-yellow-600 transition">
+            <input type="file" accept="audio/*" (change)="onFileSelected($event, 'audio')" class="hidden">
+            <i class="fas fa-microphone"></i> Audio
+          </label>
+          <button (click)="envoyerMessage()"
+                  class="ml-auto px-3 py-1 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition">
+            Envoyer 🚀
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>

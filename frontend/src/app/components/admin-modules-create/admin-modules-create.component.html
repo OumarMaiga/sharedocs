@@ -1,0 +1,78 @@
+<div class="container mx-auto p-8 bg-gray-100 min-h-screen">
+    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+      Créer un Module
+    </h2>
+  
+    <div *ngIf="errorMessage" class="mb-4 p-3 bg-red-100 text-red-700 rounded">
+      {{ errorMessage }}
+    </div>
+  
+    <form [formGroup]="moduleForm" (ngSubmit)="onSubmit()" class="bg-white p-6 rounded-lg shadow max-w-md mx-auto">
+      <div class="mb-4">
+        <label for="titre" class="block text-gray-700 font-medium mb-2">
+          Titre
+        </label>
+        <input
+          id="titre"
+          type="text"
+          formControlName="titre"
+          placeholder="Titre du module"
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+        />
+      </div>
+  
+      <div class="mb-4">
+        <label for="description" class="block text-gray-700 font-medium mb-2">
+          Description
+        </label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Description du module"
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+        ></textarea>
+      </div>
+  
+      <div class="mb-4">
+        <label for="enseignant_id" class="block text-gray-700 font-medium mb-2">
+          Enseignant
+        </label>
+        <select
+          id="enseignant_id"
+          formControlName="enseignant_id"
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+        >
+          <option value="">Sélectionner un enseignant</option>
+          <option *ngFor="let ens of enseignants" [value]="ens.id">
+            {{ ens.username }}
+          </option>
+        </select>
+      </div>
+  
+      <div class="mb-4">
+        <label for="classe_id" class="block text-gray-700 font-medium mb-2">
+          Classe
+        </label>
+        <select
+          id="classe_id"
+          formControlName="classe_id"
+          class="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-blue-300"
+        >
+          <option value="">Sélectionner une classe</option>
+          <option *ngFor="let cls of classes" [value]="cls.id">
+            {{ cls.filiere.nom }} - {{ cls.niveau.nom }} - {{ cls.nom }}
+          </option>
+        </select>
+      </div>
+  
+      <div class="flex items-center justify-between">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
+          Créer
+        </button>
+        <button type="button" (click)="router.navigate(['/admin/modules'])" class="text-gray-600 hover:text-gray-800">
+          Annuler
+        </button>
+      </div>
+    </form>
+  </div>
+  

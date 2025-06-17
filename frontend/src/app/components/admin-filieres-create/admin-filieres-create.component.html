@@ -1,0 +1,83 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="pt-16 min-h-screen bg-gray-100">
+  <!-- Sidebar fixe -->
+  <app-admin-sidebar class="fixed top-16 left-0 bottom-0 w-64 bg-gray-800 text-white"></app-admin-sidebar>
+  
+  <div class="flex items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div class="w-full max-w-lg bg-white p-8 rounded-2xl shadow-lg">
+
+      <!-- Bouton retour -->
+      <div class="mb-6">
+        <button 
+          (click)="router.navigate(['/admin/filieres'])" 
+          class="flex items-center text-blue-600 hover:text-blue-800 font-medium"
+        >
+          <i class="bi bi-arrow-left mr-2"></i> Retour à la liste des filières
+        </button>
+      </div>
+
+      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+        Créer une Filière
+      </h2>
+
+      <!-- Message d'erreur -->
+      <div *ngIf="errorMessage" class="mb-4 p-3 bg-red-100 text-red-700 rounded">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Formulaire -->
+      <form 
+        [formGroup]="filiereForm" 
+        (ngSubmit)="onSubmit()" 
+        class="space-y-6"
+      >
+        <!-- Champ Nom -->
+        <div>
+          <label for="nom" class="block text-gray-700 font-semibold mb-2">
+            Nom
+          </label>
+          <input
+            id="nom"
+            type="text"
+            formControlName="nom"
+            placeholder="Nom de la filière"
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Champ Description -->
+        <div>
+          <label for="description" class="block text-gray-700 font-semibold mb-2">
+            Description
+          </label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Description de la filière"
+            rows="4"
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
+
+        <!-- Boutons -->
+        <div class="flex items-center justify-between">
+          <button 
+            type="submit" 
+            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-all"
+          >
+            Créer
+          </button>
+          <button 
+            type="button" 
+            (click)="router.navigate(['/admin/filieres'])" 
+            class="text-gray-600 hover:text-gray-800 font-medium"
+          >
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>

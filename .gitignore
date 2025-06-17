@@ -1,0 +1,72 @@
+# Ignore global pour Node.js (Angular)
+# ------------------------------------
+# Node modules
+/frontend/node_modules/
+
+# Angular build files
+/frontend/dist/
+/frontend/.angular/cache/
+
+# Environnement Angular
+/frontend/.env
+/frontend/.env.local
+/frontend/.env.*.local
+
+# IDE et OS (global)
+# ------------------------------------
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Ignore global pour Python (backend)
+# ------------------------------------
+# Fichiers Python compilés
+/backend/__pycache__/
+/backend/*.pyc
+/backend/*.pyo
+/backend/*.pyd
+
+# Dossiers virtuels Python
+/backend/env/
+/backend/venv/
+/backend/.venv/
+
+# Fichiers d'environnement Python
+/backend/.env
+/backend/.env.*
+
+# Fichiers SQLite (si utilisés)
+*.sqlite3
+
+# Dossier de migration Django (si applicable)
+**/migrations/__pycache__/
+
+# Cache Python
+/backend/.pytest_cache/
+
+# Cache coverage
+/backend/htmlcov/
+
+# Build Python
+/backend/build/
+/backend/develop-eggs/
+/backend/eggs/
+/backend/lib/
+/backend/lib64/
+/backend/parts/
+/backend/sdist/
+/backend/var/
+/backend/*.egg-info/
+/backend/.installed.cfg
+/backend/*.egg
+
+# Logs Python
+/backend/*.log
+
+# Fichiers pip
+/backend/pip-log.txt
+/backend/pip-delete-this-directory.txt

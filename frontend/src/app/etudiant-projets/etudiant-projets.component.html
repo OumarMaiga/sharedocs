@@ -1,0 +1,71 @@
+<app-navbar class="fixed top-0 left-0 w-full z-50 shadow bg-white"></app-navbar>
+
+<div class="flex min-h-screen bg-gray-100">
+  <app-sidebar></app-sidebar>
+
+  <div class="flex-grow p-8 ml-64 mt-16 transition-all">
+    <!-- ✅ Titre modernisé -->
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+      <i class="ph ph-briefcase text-2xl text-gray-600"></i>
+      <span class="tracking-wide">Mes Projets</span>
+    </h2>
+
+    <!-- ✅ Chargement avec meilleure animation -->
+    <div *ngIf="isLoading" class="text-center text-gray-500 text-lg">
+      <i class="ph ph-clock text-xl animate-spin inline-block mr-2"></i>
+      Chargement en cours...
+    </div>
+
+    <!-- ✅ Message d'erreur amélioré -->
+    <div *ngIf="errorMessage" class="text-center text-red-600 font-semibold">
+      <i class="ph ph-warning text-xl inline-block mr-1"></i>
+      {{ errorMessage }}
+    </div>
+
+    <!-- ✅ Liste des projets -->
+    <div *ngIf="paginatedProjets.length > 0; else noProjets">
+      <ul class="space-y-5">
+        <li *ngFor="let projet of paginatedProjets" 
+            class="p-6 bg-white border border-gray-300 shadow-md rounded-xl hover:shadow-lg transition">
+          <div class="flex flex-col md:flex-row justify-between items-center">
+            <div class="text-left">
+              <h3 class="text-xl font-semibold text-gray-900 flex items-center gap-2">
+                <i class="ph ph-folder text-lg text-gray-600"></i>
+                {{ projet.titre }}
+              </h3>
+              <p class="text-gray-600 mt-2 text-sm leading-relaxed">{{ projet.description }}</p>
+            </div>
+            <button (click)="viewProjetDetail(projet)"
+              class="mt-4 md:mt-0 flex items-center gap-2 px-5 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition">
+              <i class="ph ph-eye text-lg"></i>
+              Voir plus
+            </button>
+          </div>
+        </li>
+      </ul>
+
+      <!-- ✅ Pagination modernisée -->
+      <div class="flex items-center justify-between mt-8">
+        <button (click)="prevPage()" [disabled]="pageIndex === 0"
+          class="flex items-center gap-2 px-5 py-2 bg-gray-300 text-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-400 transition">
+          <i class="ph ph-arrow-left text-lg"></i>
+          Précédent
+        </button>
+        <span class="text-gray-700 font-medium text-lg">Page {{ pageIndex + 1 }} / {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="pageIndex >= totalPages - 1"
+          class="flex items-center gap-2 px-5 py-2 bg-gray-300 text-gray-700 rounded-lg disabled:opacity-50 hover:bg-gray-400 transition">
+          Suivant
+          <i class="ph ph-arrow-right text-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- ✅ Aucun projet disponible -->
+    <ng-template #noProjets>
+      <p class="text-gray-500 italic text-center flex items-center justify-center gap-2 mt-8 text-lg">
+        <i class="ph ph-folder-open text-xl"></i>
+        Aucun projet assigné.
+      </p>
+    </ng-template>
+  </div>
+</div>

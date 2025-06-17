@@ -1,0 +1,56 @@
+<app-navbar class="fixed top-0 left-0 w-full z-50 shadow-md bg-white"></app-navbar>
+
+<div class="flex">
+  <!-- Sidebar -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Contenu principal -->
+  <main class="flex-1 p-8 ml-64 mt-16 transition-all duration-300">
+    <h1 class="text-2xl font-bold mb-8">Dashboard Étudiant</h1>
+
+    <!-- Grille de 4 colonnes pour les stats circulaires -->
+    <div class="grid grid-cols-4 gap-6">
+      <!-- Modules -->
+      <div class="bg-white shadow rounded p-4 flex flex-col items-center">
+        <div class="chart-wrapper">
+          <canvas #modulesChart></canvas>
+        </div>
+        <h2 class="mt-4 text-lg font-semibold">Modules</h2>
+        <p class="text-xl font-bold">{{ modulesCount }}</p>
+      </div>
+
+      <!-- Projets -->
+      <div class="bg-white shadow rounded p-4 flex flex-col items-center">
+        <div class="chart-wrapper">
+          <canvas #projetsChart></canvas>
+        </div>
+        <h2 class="mt-4 text-lg font-semibold">Projets</h2>
+        <p class="text-xl font-bold">{{ projetsCount }}</p>
+      </div>
+
+      <!-- Soumissions -->
+      <div class="bg-white shadow rounded p-4 flex flex-col items-center">
+        <div class="chart-wrapper">
+          <canvas #soumissionsChart></canvas>
+        </div>
+        <h2 class="mt-4 text-lg font-semibold">Soumissions</h2>
+        <p class="text-xl font-bold">{{ soumissionsCount }}</p>
+      </div>
+
+      <!-- Notifications -->
+      <div class="bg-white shadow rounded p-4 flex flex-col items-center">
+        <div class="chart-wrapper">
+          <canvas #notificationsChart></canvas>
+        </div>
+        <h2 class="mt-4 text-lg font-semibold">Notifications</h2>
+        <p class="text-xl font-bold">{{ notificationsNonLues }}</p>
+      </div>
+    </div>
+
+    <!-- Bouton de déconnexion -->
+    <button (click)="logout()"
+            class="mt-8 bg-red-600 text-white px-4 py-2 rounded">
+      Se déconnecter
+    </button>
+  </main>
+</div>

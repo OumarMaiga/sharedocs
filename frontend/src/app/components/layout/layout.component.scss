@@ -1,0 +1,4 @@
+/* Par exemple, pour s'assurer que le contenu prend toute la hauteur restante */
+.flex {
+  min-height: calc(100vh - 64px); /* Ajustez selon la hauteur de votre Navbar */
+}

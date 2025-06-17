@@ -1,0 +1,24 @@
+<nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-12">
+        <!-- Logo et navigation principale -->
+        <div class="flex items-center space-x-4">
+          <a routerLink="/admin/dashboard" class="flex items-center space-x-2">
+            <!-- Icône Home Bootstrap -->
+            <i class="bi bi-house-door-fill text-gray-800 text-xl"></i>
+            <span class="hidden md:inline text-gray-800 font-bold text-base">Dashboard</span>
+          </a>
+        </div>
+        <!-- Profil et déconnexion -->
+        <div class="flex items-center space-x-4">
+          <span class="hidden md:inline text-gray-800">Bienvenue, {{ username }}</span>
+          <button (click)="logout()" class="flex items-center text-gray-800 hover:text-gray-600 focus:outline-none mr-4">
+            <!-- Icône Logout Bootstrap -->
+            <i class="bi bi-box-arrow-right text-xl"></i>
+            <span class="hidden md:inline text-sm font-medium">Déconnexion</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  

@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+
+<div class="flex min-h-screen bg-gray-50">
+  <app-sidebar class="w-1/5 bg-white shadow-lg"></app-sidebar>
+
+  <div class="flex-1 p-8">
+    <ng-container *ngIf="!isLoading; else loadingOrError">
+      <div *ngIf="projet" class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg p-8 border border-gray-300">
+        
+        <!-- Détails du projet -->
+        <h2 class="text-3xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+          <i class="ph ph-folder text-2xl text-gray-700"></i>
+          {{ projet.titre }}
+        </h2>
+        <p class="text-gray-700 mb-6 leading-relaxed">{{ projet.description }}</p>
+        
+        <div class="mb-6 space-y-3">
+          <p class="text-gray-700 flex items-center gap-2">
+            <i class="ph ph-calendar text-lg text-gray-600"></i>
+            <span class="font-medium">Date limite :</span>
+            <span class="font-semibold text-red-600">{{ projet.date_limite | date:'medium' }}</span>
+          </p>
+          
+          <p class="text-gray-700 flex items-center gap-2">
+            <i class="ph ph-file-text text-lg text-gray-600"></i>
+            <span class="font-medium">Fichier d'instruction :</span>
+            <span *ngIf="projet.fichier_instruction">
+              <a [href]="projet.fichier_instruction" target="_blank" class="text-gray-700 hover:text-gray-500 underline transition duration-200">
+                Télécharger
+              </a>
+            </span>
+            <span *ngIf="!projet.fichier_instruction" class="text-gray-500">Aucun fichier</span>
+          </p>
+        </div>
+        
+        <!-- Liste des étudiants assignés -->
+        <div class="mb-6">
+          <h3 class="text-2xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+            <i class="ph ph-users text-lg text-gray-700"></i>
+            Étudiants assignés :
+          </h3>
+          <ul class="space-y-3">
+            <li *ngFor="let etudiant of projet.etudiants" class="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
+              <div class="flex items-center gap-3">
+                <i class="ph ph-user-circle text-2xl text-gray-600"></i>
+                <div>
+                  <p class="font-semibold text-gray-800">{{ etudiant.username }}</p>
+                  <p class="text-gray-600 text-sm">{{ etudiant.email || 'Email non disponible' }}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+        
+        <!-- Bouton de soumission -->
+        <div class="flex justify-end mb-8">
+          <a [routerLink]="['/soumission-projet', projet.id]" 
+             class="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 text-white font-semibold rounded-lg hover:bg-gray-700 transition duration-300">
+            <i class="ph ph-upload-simple text-lg"></i>
+            Soumettre mon projet
+          </a>
+        </div>
+        
+        <!-- Section des soumissions -->
+        <div>
+          <h3 class="text-2xl font-bold text-gray-900 mb-4">Mes Soumissions pour ce Projet</h3>
+          <div *ngIf="submissions && submissions.length > 0; else noSubmissions">
+            <ul class="space-y-4">
+              <li *ngFor="let submission of submissions" class="p-4 border border-gray-200 rounded-lg">
+                <h4 class="text-xl font-semibold text-gray-800">
+                  {{ submission.projet.titre }} (v{{ submission.version }})
+                </h4>
+                <p class="text-gray-600">Date de soumission : {{ submission.date_soumission | date:'medium' }}</p>
+                <p class="text-gray-600">
+                  Fichier : 
+                  <a [href]="getSafeFileUrl(projet.fichier_instruction)" target="_blank"
+                     class="text-gray-700 hover:text-gray-500 underline transition duration-200">
+                    Télécharger
+                  </a>
+                </p>
+                <div *ngIf="submission.note !== null" class="mt-2">
+                  <p class="text-gray-600">Note : <span class="font-semibold">{{ submission.note }}</span></p>
+                  <p class="text-gray-600">Feedback : {{ submission.feedback }}</p>
+                </div>
+                <button (click)="viewSubmissionDetails(submission)" 
+                        class="mt-2 px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition">
+                  Détails
+                </button>
+              </li>
+            </ul>
+          </div>
+          <ng-template #noSubmissions>
+            <p class="text-gray-500 italic">Aucune soumission trouvée pour ce projet.</p>
+          </ng-template>
+        </div>
+      </div>
+    </ng-container>
+    
+    <!-- Chargement / Erreur -->
+    <ng-template #loadingOrError>
+      <div *ngIf="isLoading" class="text-center py-8 text-gray-500">
+        Chargement...
+      </div>
+      <div *ngIf="errorMessage" class="text-center py-8 text-red-600 font-semibold">
+        {{ errorMessage }}
+      </div>
+    </ng-template>
+  </div>
+</div>

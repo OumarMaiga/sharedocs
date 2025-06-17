@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+
+/* Ajustez les marges pour que le contenu principal ne soit pas recouvert par la sidebar */
+.flex-grow {
+  margin-left: 16rem; /* équivalent à ml-64 */
+}

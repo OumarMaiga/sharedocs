@@ -1,0 +1,18 @@
+.home-container {
+  margin: 20px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+}
+.chart-wrapper {
+  width: 150px;    /* Ajustez selon vos préférences */
+  height: 150px;
+  position: relative; /* Permet de positionner le canvas correctement */
+}
+
+.chart-wrapper canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

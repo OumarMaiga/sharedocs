@@ -1,0 +1,58 @@
+<nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 shadow z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-12">
+      
+      <!-- Titre du Dashboard -->
+      <div class="flex items-center space-x-4">
+        <a routerLink="/admin/dashboard" class="flex items-center space-x-2">
+          <i class="bi bi-house-door-fill text-gray-800 text-xl"></i>
+          <span class="hidden md:inline text-gray-800 font-bold text-base">Dashboard</span>
+        </a>
+      </div>
+
+      <!-- Notifications, Profil & Déconnexion -->
+      <div class="flex items-center space-x-4 relative">
+        
+        <!-- Cloche de notifications -->
+        <div class="relative">
+          <button (click)="toggleNotifications()" class="flex items-center text-lg p-1 hover:text-gray-600 transition">
+            <i class="bi bi-bell-fill text-gray-800"></i>
+            <span *ngIf="notifications.length > 0"
+              class="absolute -top-1 -right-1 bg-red-600 text-xs font-bold text-white px-1.5 py-0.5 rounded-full">
+              {{ notifications.length }}
+            </span>
+          </button>
+
+          <!-- Menu déroulant des notifications -->
+          <div *ngIf="showNotifications"
+            class="absolute right-0 mt-3 w-72 bg-white text-black shadow-lg rounded-lg overflow-hidden z-50">
+            <ul class="max-h-64 overflow-y-auto">
+              <li *ngFor="let notif of notifications"
+                (click)="handleNotificationClick(notif)"
+                class="p-3 border-b cursor-pointer hover:bg-gray-100 text-sm">
+                <span class="block font-medium text-gray-800">{{ notif.message }}</span>
+                <span class="text-gray-500 text-xs">{{ notif.date_creation | date:'short' }}</span>
+              </li>
+              <li *ngIf="notifications.length === 0" class="p-3 text-center text-gray-500">
+                Aucune notification
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Profil et Déconnexion -->
+        <div class="flex items-center space-x-3">
+          <div class="flex items-center space-x-2">
+            <i class="bi bi-person-fill text-gray-800 text-xl"></i>
+            <span class="hidden md:inline text-gray-800">Bienvenue, <strong class="text-black">{{ username }}</strong></span>
+          </div>
+          <button (click)="logout()" class="flex items-center text-gray-800 hover:text-gray-600 focus:outline-none">
+            <i class="bi bi-box-arrow-right text-xl"></i>
+            <span class="hidden md:inline text-sm font-medium">Déconnexion</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</nav>

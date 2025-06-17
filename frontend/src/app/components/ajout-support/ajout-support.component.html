@@ -1,0 +1,44 @@
+<app-prof-navbar></app-prof-navbar> <!-- ✅ Navbar incluse -->
+<div class="flex">
+  <app-prof-sidebar></app-prof-sidebar> <!-- ✅ Sidebar incluse -->
+
+  <!-- ✅ FORMULAIRE D'AJOUT DE SUPPORT -->
+  <main class="flex-1 flex justify-center items-center p-6 bg-gray-100">
+    <div class="max-w-lg w-full bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-5 flex items-center">
+        📂 <span class="ml-2">Ajouter un support</span>
+      </h2>
+
+      <!-- ✅ Titre du support -->
+      <div class="mb-4">
+        <label for="titre" class="block text-sm font-medium text-gray-700">Titre du support :</label>
+        <input id="titre" [(ngModel)]="titre" 
+               class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+               type="text" placeholder="Ex: Introduction"/>
+      </div>
+
+      <!-- ✅ Description -->
+      <div class="mb-4">
+        <label for="description" class="block text-sm font-medium text-gray-700">Description :</label>
+        <textarea id="description" [(ngModel)]="description" 
+                  class="w-full p-3 border border-gray-300 rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                  placeholder="Ex: Notes du cours"></textarea>
+      </div>
+
+      <!-- ✅ Fichier -->
+      <div class="mb-4">
+        <label for="file" class="block text-sm font-medium text-gray-700">Fichier :</label>
+        <input id="file" type="file" (change)="onFileSelected($event)" 
+               class="w-full p-2 border border-gray-300 rounded-lg mt-1 bg-gray-50 
+                      file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold 
+                      file:bg-blue-100 file:text-blue-600 hover:file:bg-blue-200"/>
+      </div>
+
+      <!-- ✅ Bouton Ajouter -->
+      <button (click)="ajouterSupport()" 
+              class="w-full bg-blue-600 text-white px-4 py-3 rounded-lg mt-4 font-medium hover:bg-blue-700 transition duration-300">
+        Ajouter le support
+      </button>
+    </div>
+  </main>
+</div>

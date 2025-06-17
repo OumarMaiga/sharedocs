@@ -1,0 +1,102 @@
+// // Arrière-plan en image
+// .login-container {
+//     background: url('https://source.unsplash.com/random/1600x900?technology') no-repeat center center/cover;
+//     height: 100vh;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+
+  
+//   .input-group input {
+//     width: 100%;
+//     padding: 10px;
+//     border: 2px solid black; /* Bordure noire */
+//     border-radius: 6px;
+//     background: white; /* Fond blanc pour rendre la bordure visible */
+//     color: black; /* Texte noir pour une bonne visibilité */
+//     font-size: 16px;
+//     outline: none;
+//     transition: background 0.3s, border 0.3s;
+  
+//     &::placeholder {
+//       color: rgba(0, 0, 0, 0.5);
+//     }
+  
+//     &:focus {
+//       background: #f9f9f9;
+//       border: 2px solid black; /* Garde la bordure noire au focus */
+//     }
+//   }
+  
+  
+//   // Box de connexion
+//   .login-box {
+//     background: rgba(255, 255, 255, 0.15); // Légère transparence pour effet de verre
+//     backdrop-filter: blur(10px); // Effet de flou
+//     padding: 30px;
+//     width: 350px;
+//     border-radius: 12px;
+//     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+//     text-align: center;
+//     color: rgb(12, 0, 0);
+//   }
+  
+//   // Champs d'entrée
+//   .input-group {
+//     margin-bottom: 20px;
+//     text-align: left;
+  
+//     label {
+//       font-size: 14px;
+//       font-weight: bold;
+//       display: block;
+//       margin-bottom: 5px;
+//     }
+  
+//     input {
+//       width: 100%;
+//       padding: 10px;
+//       border: none;
+//       border-radius: 6px;
+//       background: rgba(255, 255, 255, 0.3);
+//       color: white;
+//       font-size: 16px;
+//       outline: none;
+//       transition: background 0.3s;
+  
+//       &::placeholder {
+//         color: rgba(255, 255, 255, 0.7);
+//       }
+  
+//       &:focus {
+//         background: rgba(255, 255, 255, 0.5);
+//       }
+//     }
+//   }
+  
+//   // Bouton de connexion
+//   button {
+//     width: 100%;
+//     padding: 12px;
+//     border: none;
+//     border-radius: 6px;
+//     background: linear-gradient(45deg, #007bff, #00d4ff);
+//     color: white;
+//     font-size: 16px;
+//     font-weight: bold;
+//     cursor: pointer;
+//     transition: 0.3s;
+  
+//     &:hover {
+//       background: linear-gradient(45deg, #0056b3, #0094cc);
+//     }
+//   }
+  
+//   // Message d'erreur
+//   .error {
+//     margin-top: 15px;
+//     color: #ff4d4d;
+//     font-weight: bold;
+//   }
+  

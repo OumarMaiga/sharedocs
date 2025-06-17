@@ -1,0 +1,124 @@
+<app-prof-navbar></app-prof-navbar>
+
+<div class="flex min-h-screen bg-gray-50">
+  <app-prof-sidebar class="w-64 bg-gray-900 text-white shadow-lg"></app-prof-sidebar>
+
+  <!-- Contenu principal -->
+  <main class="flex-1 p-6 bg-gray-100">
+    <div class="max-w-5xl mx-auto bg-white shadow-lg rounded-lg p-6 border border-gray-200">
+      <!-- En-tête : Titre + Barre de recherche -->
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-5">
+        <!-- Titre principal -->
+        <h2 class="text-2xl font-semibold text-gray-800 flex items-center gap-2">
+          <i class="bi bi-buildings text-[#d4af37] text-xl"></i>
+          <span>Mes Classes et Modules</span>
+        </h2>
+        <!-- Barre de recherche -->
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Rechercher..."
+            class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#d4af37] text-gray-700"
+          />
+          <i class="bi bi-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+        </div>
+      </div>
+
+      <!-- Icônes actions (Filtrer, Nouveau) -->
+      <div class="flex gap-3 mb-5">
+        <button
+          class="bg-gray-100 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-gray-200 transition"
+        >
+          <i class="bi bi-funnel text-xl text-gray-600"></i>
+          <span class="text-sm text-gray-700">Filtrer</span>
+        </button>
+        <button
+          class="bg-gray-100 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-gray-200 transition"
+        >
+          <i class="bi bi-plus-circle text-xl text-gray-600"></i>
+          <span class="text-sm text-gray-700">Nouveau</span>
+        </button>
+      </div>
+
+      <!-- Message de chargement -->
+      <div *ngIf="isLoading" class="flex justify-center items-center py-4 text-gray-500 text-lg">
+        <i class="bi bi-hourglass-split text-[#d4af37]"></i>
+        <span class="ml-2">Chargement des classes et modules...</span>
+        <svg
+          class="animate-spin ml-2 h-5 w-5 text-[#d4af37]"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8v8H4z"
+          ></path>
+        </svg>
+      </div>
+
+      <!-- Message d'erreur -->
+      <div
+        *ngIf="errorMessage"
+        class="text-red-600 text-center bg-red-100 p-3 rounded-lg flex items-center gap-2 justify-center"
+      >
+        <i class="bi bi-x-circle"></i>
+        <span class="ml-2">{{ errorMessage }}</span>
+      </div>
+
+      <!-- Liste des classes et modules -->
+      <ul *ngIf="classes.length > 0 && !isLoading" class="space-y-6">
+        <li
+          *ngFor="let classe of classes"
+          class="bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-4"
+        >
+          <h3 class="text-xl font-semibold text-gray-800 flex items-center gap-2">
+            <i class="bi bi-mortarboard text-lg text-[#d4af37]"></i>
+            {{ classe.nom }}
+          </h3>
+          <p class="text-gray-600">Filière : {{ classe.filiere.nom }}</p>
+          <p class="text-gray-600">Niveau : {{ classe.niveau.nom }}</p>
+
+          <!-- Modules -->
+          <div *ngIf="classe.modules.length > 0" class="mt-4">
+            <h4 class="text-lg font-semibold text-gray-700 mb-2">
+              Modules enseignés :
+            </h4>
+            <ul class="list-disc pl-5 text-gray-600">
+              <li *ngFor="let module of classe.modules">
+                <a
+                  [routerLink]="['/prof-modules', module.id]"
+                  class="text-[#d4af37] hover:underline"
+                >
+                  {{ module.titre }}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div *ngIf="classe.modules.length === 0" class="text-gray-500 mt-2">
+            Aucun module disponible pour cette classe.
+          </div>
+        </li>
+      </ul>
+
+      <!-- Message si aucune classe n'est trouvée -->
+      <div
+        *ngIf="classes.length === 0 && !isLoading"
+        class="text-center text-gray-500 py-6 flex items-center gap-2 justify-center"
+      >
+        <i class="bi bi-inbox"></i>
+        <span class="ml-2">Aucune classe disponible pour l'instant.</span>
+      </div>
+    </div>
+  </main>
+</div>

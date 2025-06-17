@@ -1,0 +1,91 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="pt-16 min-h-screen bg-gray-100">
+  <!-- Sidebar fixe -->
+  <app-admin-sidebar class="fixed top-16 left-0 bottom-0 w-64 bg-gray-900 text-white shadow-lg"></app-admin-sidebar>
+
+  <!-- Contenu principal avec décalage à gauche -->
+  <div class="ml-64 p-8 space-y-6">
+    <h2 class="text-4xl font-extrabold text-gray-800 text-center mb-8">
+      Liste des Utilisateurs (Superadmin)
+    </h2>
+
+    <!-- Bouton + barre de recherche -->
+    <div class="flex justify-between items-center mb-6">
+      <input
+        type="text"
+        placeholder="Rechercher un utilisateur..."
+        class="w-1/3 px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        (input)="onSearch($event)"
+      />
+      <button
+        (click)="router.navigate(['/admin/users/create'])"
+        class="flex items-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow transition duration-300"
+      >
+        <i class="bi bi-plus-lg mr-2"></i> Créer un nouvel utilisateur
+      </button>
+    </div>
+
+    <!-- Message d'erreur -->
+    <div *ngIf="errorMessage" class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg shadow">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Tableau -->
+    <div class="overflow-x-auto rounded-lg shadow">
+      <table class="min-w-full bg-white rounded-lg">
+        <thead>
+          <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+            <th class="py-3 px-6 text-left">ID</th>
+            <th class="py-3 px-6 text-left">Nom d'utilisateur</th>
+            <th class="py-3 px-6 text-left">Rôle</th>
+            <th class="py-3 px-6 text-left">Classe</th>
+            <th class="py-3 px-6 text-center">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-700 text-sm font-medium">
+          <tr
+            *ngFor="let user of displayedUsers"
+            class="border-b border-gray-200 hover:bg-gray-100 transition-colors"
+          >
+            <td class="py-4 px-6 whitespace-nowrap">{{ user.id }}</td>
+            <td class="py-4 px-6">{{ user.username }}</td>
+            <td class="py-4 px-6">{{ user.role }}</td>
+            <td class="py-4 px-6">{{ user.classe || '-' }}</td>
+            <td class="py-4 px-6 text-center">
+              <div class="flex items-center justify-center space-x-4">
+                <button (click)="onEdit(user)" class="text-blue-600 hover:text-blue-800 transition">
+                  <i class="bi bi-pencil-square text-xl"></i>
+                </button>
+                <button (click)="onDelete(user)" class="text-red-600 hover:text-red-800 transition">
+                  <i class="bi bi-trash-fill text-xl"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex items-center justify-center space-x-4 mt-6">
+      <button
+        (click)="prevPage()"
+        [disabled]="page === 1"
+        class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg shadow disabled:opacity-50 transition"
+      >
+        Précédent
+      </button>
+      <span class="font-semibold text-lg">
+        Page {{ page }} / {{ totalPages }}
+      </span>
+      <button
+        (click)="nextPage()"
+        [disabled]="page === totalPages"
+        class="px-4 py-2 bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold rounded-lg shadow disabled:opacity-50 transition"
+      >
+        Suivant
+      </button>
+    </div>
+  </div>
+</div>

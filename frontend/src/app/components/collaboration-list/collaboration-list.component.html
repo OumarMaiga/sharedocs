@@ -1,0 +1,58 @@
+<app-navbar></app-navbar>
+
+<div class="flex pt-16 min-h-screen bg-gray-100">
+  <!-- ✅ Sidebar fixe -->
+  <app-sidebar class="w-64 bg-gray-900 text-white shadow-lg"></app-sidebar>
+
+  <!-- ✅ Contenu principal bien espacé -->
+  <main class="flex-1 px-8 py-6">
+    <div class="max-w-5xl mx-auto bg-white shadow-md rounded-xl p-6">
+      
+      <!-- ✅ Titre -->
+      <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+        <i class="fas fa-folder text-gray-700"></i>
+        Mes Projets
+      </h2>
+
+      <!-- ✅ Indicateur de chargement -->
+      <div *ngIf="isLoading" class="flex justify-center items-center text-gray-600 text-lg py-4">
+        <i class="fas fa-spinner fa-spin mr-2"></i> Chargement des projets...
+      </div>
+
+      <!-- ✅ Message d'erreur -->
+      <div *ngIf="errorMessage" class="text-center text-red-500 font-semibold bg-red-100 p-4 rounded-lg shadow-md">
+        <i class="fas fa-exclamation-circle mr-2"></i>
+        {{ errorMessage }}
+      </div>
+
+      <!-- ✅ Liste des projets -->
+      <div *ngIf="projets.length > 0; else noProjets">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div *ngFor="let projet of projets" 
+               class="bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-5 hover:shadow-lg transition">
+            
+            <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center gap-2">
+              <i class="fas fa-folder-open text-gray-700"></i>
+              {{ projet.titre }}
+            </h3>
+            
+            <p class="text-gray-600 text-sm mb-4">{{ projet.description }}</p>
+            
+            <a [routerLink]="['/collaboration', projet.espace_id]" 
+               class="flex items-center justify-center bg-gray-700 text-white text-sm px-4 py-2 rounded-lg hover:bg-gray-800 transition">
+              <i class="fas fa-users mr-2"></i> Accéder à l'espace
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ✅ Aucun projet disponible -->
+      <ng-template #noProjets>
+        <p class="text-gray-500 italic text-center flex items-center justify-center gap-2 mt-8">
+          <i class="fas fa-folder-open text-lg"></i>
+          Aucun projet disponible.
+        </p>
+      </ng-template>
+    </div>
+  </main>
+</div>
