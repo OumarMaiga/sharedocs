@@ -4,11 +4,13 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angula
 import { RouterModule, Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AdminModulesService } from '../../services/admin-modules.service';
+import { AdminSidebarComponent } from '../admin-sidebar/admin-sidebar.component';
+import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
 
 @Component({
   selector: 'app-admin-modules-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, AdminNavbarComponent, AdminSidebarComponent],
   templateUrl: './admin-modules-create.component.html',
   styleUrls: ['./admin-modules-create.component.scss']
 })

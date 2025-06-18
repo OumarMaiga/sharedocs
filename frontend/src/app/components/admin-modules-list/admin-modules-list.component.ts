@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { AdminModulesService, Module } from '../../services/admin-modules.service';
 import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
 import { AdminSidebarComponent } from '../admin-sidebar/admin-sidebar.component';
@@ -13,15 +13,17 @@ import { AdminSidebarComponent } from '../admin-sidebar/admin-sidebar.component'
   styleUrls: ['./admin-modules-list.component.scss']
 })
 export class AdminModulesListComponent implements OnInit {
-  modules: Module[] = [];
+  modules: Module[] = []; // Liste complète
+  filteredModules: Module[] = []; // Liste filtrée
   errorMessage = '';
+  searchTerm: string = '';
 
   // Pagination
   page = 1;
   pageSize = 5;
 
   constructor(
-    private adminModulesService: AdminModulesService,
+    private modulesService: AdminModulesService,
     public router: Router
   ) {}
 
@@ -30,11 +32,10 @@ export class AdminModulesListComponent implements OnInit {
   }
 
   loadModules(): void {
-    // Utilisation de getAllModules() pour un administrateur
-    this.adminModulesService.getAllModules().subscribe({
+    this.modulesService.getAllModules().subscribe({
       next: (data) => {
         this.modules = data;
-        console.log('Modules loaded:', data);
+        this.filteredModules = data;
       },
       error: (err) => {
         console.error('Erreur lors de la récupération des modules:', err);
@@ -43,13 +44,26 @@ export class AdminModulesListComponent implements OnInit {
     });
   }
 
+  onSearch(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.searchTerm = input.value.toLowerCase();
+    this.page = 1;
+
+    this.filteredModules = this.modules.filter(module =>
+      module.titre.toLowerCase().includes(this.searchTerm) ||
+      (module.description && module.description.toLowerCase().includes(this.searchTerm)) ||
+      module.enseignant.username.toLowerCase().includes(this.searchTerm) ||
+      module.classe.nom.toLowerCase().includes(this.searchTerm)
+    );
+  }
+
   get totalPages(): number {
-    return Math.ceil(this.modules.length / this.pageSize);
+    return Math.ceil(this.filteredModules.length / this.pageSize);
   }
 
   get displayedModules(): Module[] {
     const startIndex = (this.page - 1) * this.pageSize;
-    return this.modules.slice(startIndex, startIndex + this.pageSize);
+    return this.filteredModules.slice(startIndex, startIndex + this.pageSize);
   }
 
   prevPage(): void {
@@ -66,13 +80,13 @@ export class AdminModulesListComponent implements OnInit {
 
   onDelete(module: Module): void {
     if (confirm(`Voulez-vous vraiment supprimer le module ${module.titre} ?`)) {
-      this.adminModulesService.deleteModule(module.id).subscribe({
+      this.modulesService.deleteModule(module.id).subscribe({
         next: () => {
-          console.log("Module supprimé:", module);
+          console.log('Module supprimé:', module);
           this.loadModules();
         },
         error: (err) => {
-          console.error("Erreur lors de la suppression:", err);
+          console.error('Erreur lors de la suppression:', err);
           this.errorMessage = err;
         }
       });
