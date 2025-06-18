@@ -1,0 +1,91 @@
+<app-admin-navbar></app-admin-navbar>
+
+<div class="pt-16 min-h-screen bg-gray-100">
+  <app-admin-sidebar class="fixed top-16 left-0 bottom-0 w-64 bg-gray-800 text-white"></app-admin-sidebar>
+
+  <div class="flex items-center justify-center min-h-screen bg-gray-100 p-6">
+    <div class="w-full max-w-lg bg-white p-8 rounded-2xl shadow-lg">
+
+      <!-- Bouton retour -->
+      <div class="mb-6">
+        <button 
+          (click)="router.navigate(['/admin/classes'])" 
+          class="flex items-center text-blue-600 hover:text-blue-800 font-medium"
+        >
+          <i class="bi bi-arrow-left mr-2"></i> Retour à la liste des classes
+        </button>
+      </div>
+
+      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+        Créer une Classe
+      </h2>
+
+      <!-- Message d'erreur -->
+      <div *ngIf="errorMessage" class="mb-4 p-3 bg-red-100 text-red-700 rounded">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Formulaire -->
+      <form 
+        [formGroup]="classeForm" 
+        (ngSubmit)="onSubmit()" 
+        class="space-y-6"
+      >
+        <!-- Champ Filière -->
+        <div>
+          <label for="filiere" class="block text-gray-700 font-semibold mb-2">Filière</label>
+          <select
+            id="filiere"
+            formControlName="filiere_id"
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Sélectionner une filière</option>
+            <option *ngFor="let filiere of filieres" [value]="filiere.id">{{ filiere.nom }}</option>
+          </select>
+        </div>
+
+        <!-- Champ Niveau -->
+        <div>
+          <label for="niveau" class="block text-gray-700 font-semibold mb-2">Niveau</label>
+          <select
+            id="niveau"
+            formControlName="niveau_id"
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            <option value="">Sélectionner un niveau</option>
+            <option *ngFor="let niveau of niveaux" [value]="niveau.id">{{ niveau.nom }}</option>
+          </select>
+        </div>
+
+        <!-- Champ Nom de la classe -->
+        <div>
+          <label for="nom" class="block text-gray-700 font-semibold mb-2">Nom de la Classe</label>
+          <input
+            id="nom"
+            type="text"
+            formControlName="nom"
+            placeholder="Exemple : A, B, 2023-A"
+            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Boutons -->
+        <div class="flex items-center justify-between">
+          <button 
+            type="submit" 
+            class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-all"
+          >
+            Créer
+          </button>
+          <button 
+            type="button" 
+            (click)="router.navigate(['/admin/classes'])" 
+            class="text-gray-600 hover:text-gray-800 font-medium"
+          >
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

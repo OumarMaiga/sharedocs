@@ -28,6 +28,10 @@ import { CreerProjetComponent } from './components/creer-projet/creer-projet.com
 import { ProfSubmissionsComponent } from './prof-submissions/prof-submissions.component';
 import { ProfessorClassesComponent } from './components/professor-classes/professor-classes.component';
 import { CollaborationComponent } from './components/collaboration/collaboration.component'
+import { AdminNiveauxListComponent } from './admin-niveaux-list/admin-niveaux-list.component';
+import { AdminNiveauxCreateComponent } from './admin-niveaux-create/admin-niveaux-create.component';
+import { AdminClassesListComponent } from './admin-classes-list/admin-classes-list.component';
+import { AdminClassesCreateComponent } from './admin-classes-create/admin-classes-create.component';
 //import { AjoutProjetComponent } from './pages/projets/ajout-projet/ajout-projet.component';
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -74,6 +78,10 @@ export const routes: Routes = [
   { path: 'admin/modules/create', component: AdminModulesCreateComponent },
   { path: 'admin/timetable', component: AdminTimetableComponent },
   { path: 'admin/emplois-du-temps', component: AdminTimetableComponent }, 
+  { path: 'admin/niveaux', component: AdminNiveauxListComponent },
+  { path: 'admin/niveaux/create', component: AdminNiveauxCreateComponent },
+  { path: 'admin/classes', component: AdminClassesListComponent },
+  { path: 'admin/classes/create', component: AdminClassesCreateComponent },
 ];
 
 
