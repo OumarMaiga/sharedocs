@@ -1,10 +1,17 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
 import { AdminSidebarComponent } from '../admin-sidebar/admin-sidebar.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Chart from 'chart.js/auto';
+import { UtilisateurService } from '../../services/utilisateur.service';
+import { FilieresService } from '../../services/filieres.service';
+import { NiveauxService } from '../../services/niveaux.service';
+import { ClassesService } from '../../services/classes.service';
+import { ModulesService } from '../../services/modules.service';
+import { AdminUser, AdminUserService } from '../../services/admin-user.service';
+import { AdminModulesService } from '../../services/admin-modules.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -29,16 +36,40 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
 
   private apiUrl = 'http://127.0.0.1:8000/api/stats/';
   chart: Chart | null = null;
+  currentYear: number = new Date().getFullYear();
 
-  constructor(private http: HttpClient) {}
+  userCount = 0;
+  filiereCount = 0;
+  niveauCount = 0;
+  classeCount = 0;
+  moduleCount = 0;
+  
+  constructor(private http: HttpClient,
+        public router: Router,
+        private utilisateursService: AdminUserService,
+        private filieresService: FilieresService,
+        private niveauxService: NiveauxService,
+        private classesService: ClassesService,
+        private modulesService: AdminModulesService
+    
+  ) {}
 
   ngOnInit(): void {
     this.loadStatistics();
+    this.loadCounts();
   }
 
   ngAfterViewInit(): void {
     // Tentative de rendu initial, qui sera mis à jour une fois les données chargées
     this.renderChart();
+  }
+  
+  loadCounts(): void {
+    this.utilisateursService.getUsers().subscribe(users => this.userCount = users.length);
+    this.filieresService.getFilieres().subscribe(filieres => this.filiereCount = filieres.length);
+    this.niveauxService.getNiveaux().subscribe(niveaux => this.niveauCount = niveaux.length);
+    this.classesService.getClasses().subscribe(classes => this.classeCount = classes.length);
+    this.modulesService.getAllModules().subscribe(modules => this.moduleCount = modules.length);
   }
 
   loadStatistics(): void {

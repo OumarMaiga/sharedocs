@@ -1099,12 +1099,21 @@ class UtilisateurViewSet(viewsets.ModelViewSet):
     serializer_class = UtilisateurSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     if user.is_superuser:  
+    #         return Utilisateur.objects.all()
+    #     return Utilisateur.objects.filter(id=user.id) 
     def get_queryset(self):
         user = self.request.user
-        if user.is_superuser:  
-            return Utilisateur.objects.all()
-        return Utilisateur.objects.filter(id=user.id) 
+        queryset = Utilisateur.objects.all() if user.is_superuser else Utilisateur.objects.filter(id=user.id)
 
+        # Récupérer le paramètre "role" depuis l'URL
+        role = self.request.query_params.get('role')
+        if role:
+            queryset = queryset.filter(role=role)
+
+        return queryset
 
 # ✅ Gestion des filières
 class FiliereViewSet(viewsets.ModelViewSet):

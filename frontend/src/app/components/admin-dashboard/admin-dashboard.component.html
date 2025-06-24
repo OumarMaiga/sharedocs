@@ -1,16 +1,80 @@
 <app-admin-navbar></app-admin-navbar>
 
-<div class="flex pt-16">
-  <!-- Sidebar fixe -->
+<div class="pt-16 min-h-screen bg-gray-100">
   <app-admin-sidebar class="fixed top-16 left-0 bottom-0 w-64 bg-gray-800 text-white"></app-admin-sidebar>
-  
-  <!-- Contenu principal -->
-  <div class="flex-grow bg-gray-100 min-h-screen p-8">
-    <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Dashboard Superuser</h2>
-    
-    <!-- Zone pour le graphique -->
-    <div class="relative h-96 bg-white rounded-lg shadow p-4">
-      <canvas id="statsChart" class="w-full h-full"></canvas>
+
+  <div class="ml-64 p-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-10 text-center">Tableau de bord</h1>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      <!-- Utilisateurs -->
+      <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-semibold text-gray-700">Utilisateurs</h3>
+          <i class="bi bi-people-fill text-2xl text-blue-600"></i>
+        </div>
+        <div class="text-4xl font-bold text-blue-500">{{ userCount }}</div>
+        <p class="text-gray-500 mt-2">Comptes enregistrés</p>
+        <button (click)="router.navigate(['/admin/users'])" class="mt-4 text-sm text-blue-600 hover:underline">
+          Voir les utilisateurs →
+        </button>
+      </div>
+
+      <!-- Filières -->
+      <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-semibold text-gray-700">Filières</h3>
+          <i class="bi bi-diagram-3-fill text-2xl text-green-600"></i>
+        </div>
+        <div class="text-4xl font-bold text-green-500">{{ filiereCount }}</div>
+        <p class="text-gray-500 mt-2">Filières actives</p>
+        <button (click)="router.navigate(['/admin/filieres'])" class="mt-4 text-sm text-green-600 hover:underline">
+          Gérer les filières →
+        </button>
+      </div>
+
+      <!-- Niveaux -->
+      <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-semibold text-gray-700">Niveaux</h3>
+          <i class="bi bi-layers-fill text-2xl text-purple-600"></i>
+        </div>
+        <div class="text-4xl font-bold text-purple-500">{{ niveauCount }}</div>
+        <p class="text-gray-500 mt-2">Niveaux d'étude</p>
+        <button (click)="router.navigate(['/admin/niveaux'])" class="mt-4 text-sm text-purple-600 hover:underline">
+          Voir les niveaux →
+        </button>
+      </div>
+
+      <!-- Classes -->
+      <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-semibold text-gray-700">Classes</h3>
+          <i class="bi bi-building text-2xl text-orange-600"></i>
+        </div>
+        <div class="text-4xl font-bold text-orange-500">{{ classeCount }}</div>
+        <p class="text-gray-500 mt-2">Classes disponibles</p>
+        <button (click)="router.navigate(['/admin/classes'])" class="mt-4 text-sm text-orange-600 hover:underline">
+          Voir les classes →
+        </button>
+      </div>
+
+      <!-- Modules -->
+      <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-semibold text-gray-700">Modules</h3>
+          <i class="bi bi-book-half text-2xl text-red-600"></i>
+        </div>
+        <div class="text-4xl font-bold text-red-500">{{ moduleCount }}</div>
+        <p class="text-gray-500 mt-2">Modules d’enseignement</p>
+        <button (click)="router.navigate(['/admin/modules'])" class="mt-4 text-sm text-red-600 hover:underline">
+          Voir les modules →
+        </button>
+      </div>
     </div>
+
+    <p class="text-center text-sm text-gray-400">
+      © {{ currentYear }} - Dashboard Administration
+    </p>
   </div>
 </div>

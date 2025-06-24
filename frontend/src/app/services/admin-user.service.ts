@@ -49,6 +49,17 @@ export class AdminUserService {
       );
   }
 
+  
+  // Récupérer la liste de tous les utilisateurs
+  getEnseignants(): Observable<AdminUser[]> {
+    const url = `${this.baseUrl}/utilisateurs/?role=professeur`;
+    return this.http.get<AdminUser[]>(url, { headers: this.getAuthHeaders() })
+      .pipe(
+        tap(data => console.log('Users retrieved:', data)),
+        catchError(error => throwError(() => new Error('Error retrieving users')))
+      );
+  }
+
   // Créer un nouvel utilisateur
  
   // Mettre à jour un utilisateur

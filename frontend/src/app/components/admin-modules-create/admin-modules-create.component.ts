@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AdminModulesService } from '../../services/admin-modules.service';
 import { AdminSidebarComponent } from '../admin-sidebar/admin-sidebar.component';
 import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
+import { AdminUser, AdminUserService } from '../../services/admin-user.service';
 
 @Component({
   selector: 'app-admin-modules-create',
@@ -26,6 +27,7 @@ export class AdminModulesCreateComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private adminUserService: AdminUserService,
     private adminModulesService: AdminModulesService,
     private http: HttpClient,
     public router: Router
@@ -43,15 +45,27 @@ export class AdminModulesCreateComponent implements OnInit {
     this.loadClasses();
   }
 
+  // loadEnseignants(): void {
+  //   const token = localStorage.getItem('token') || '';
+  //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  //   this.http.get<any[]>(this.enseignantsUrl, { headers }).subscribe({
+  //     next: (data) => {
+  //       this.enseignants = data;
+  //     },
+  //     error: (err) => {
+  //       console.error('Erreur lors du chargement des enseignants:', err);
+  //     }
+  //   });
+  // }
+
   loadEnseignants(): void {
-    const token = localStorage.getItem('token') || '';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    this.http.get<any[]>(this.enseignantsUrl, { headers }).subscribe({
+    this.adminUserService.getEnseignants().subscribe({
       next: (data) => {
         this.enseignants = data;
       },
       error: (err) => {
         console.error('Erreur lors du chargement des enseignants:', err);
+        this.errorMessage = err;
       }
     });
   }

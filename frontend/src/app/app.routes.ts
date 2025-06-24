@@ -62,10 +62,8 @@ export const routes: Routes = [
     component: EtudiantProjetDetailComponent
   },
   { path: 'prof-submissions/module/:id', component: ProfSubmissionsComponent },
-  { path: 'prof-classes', component: ProfessorClassesComponent },
- 
-  { path: 'collaboration', component: CollaborationListComponent },
- 
+  { path: 'prof-classes', component: ProfessorClassesComponent }, 
+  { path: 'collaboration', component: CollaborationListComponent }, 
   { path: 'collaboration/:id', component: CollaborationComponent },
   { path: 'admin/users', component: AdminUserListComponent },
   { path: 'admin/dashboard', component: AdminDashboardComponent },
