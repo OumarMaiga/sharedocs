@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // ✅ Import de FormsModule
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProfModuleService } from '../../services/prof-module.service';
 import { CommonModule } from '@angular/common';
 import { ProfNavbarComponent } from '../../components/prof-navbar/prof-navbar.component';
@@ -21,6 +21,7 @@ export class AjoutSupportComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private profModuleService: ProfModuleService
   ) {}
 
@@ -49,6 +50,7 @@ export class AjoutSupportComponent implements OnInit {
     this.profModuleService.ajouterSupport(this.moduleId, formData).subscribe({
       next: (response) => {
         console.log('✅ Support ajouté avec succès :', response);
+        this.router.navigate(['/prof-modules/'+this.moduleId]);
       },
       error: (error) => {
         console.error('❌ Erreur lors de l\'ajout du support :', error);

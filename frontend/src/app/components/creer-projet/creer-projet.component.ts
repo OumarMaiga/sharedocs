@@ -142,7 +142,7 @@ export class CreerProjetComponent implements OnInit {
         this.isLoading = false;
         this.etudiants = [];
         console.log("🎉 Projet créé avec succès !");
-        this.location.back();
+        // this.location.back();
       },
       error => {
         console.error('❌ Erreur lors de la création du projet', error);

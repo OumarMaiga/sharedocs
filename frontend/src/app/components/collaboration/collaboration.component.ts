@@ -79,7 +79,6 @@ selectedAudio: File | null = null;
         this.newMessage = '';
         this.selectedFile = null;
         this.selectedAudio = null;
-        alert("📨 Message envoyé avec succès !");
       },
       error: (err) => {
         console.error("❌ Erreur lors de l'envoi :", err);

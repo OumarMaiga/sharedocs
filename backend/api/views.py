@@ -1273,8 +1273,9 @@ class ProjetViewSet(viewsets.ModelViewSet):
         description = request.data.get("description")
         date_limite = request.data.get("date_limite")
         module_id = request.data.get("module")
-        etudiant_ids = request.data.get("etudiants", [])
-
+        etudiant_ids = request.data.getlist("etudiants", [])
+        fichier_instruction = request.FILES.get('fichier_instruction')
+        
         module = get_object_or_404(Module, id=module_id, enseignant=professeur)
         etudiants = Utilisateur.objects.filter(id__in=etudiant_ids, classe=module.classe, role="etudiant")
 
@@ -1286,6 +1287,7 @@ class ProjetViewSet(viewsets.ModelViewSet):
             description=description,
             date_limite=date_limite,
             module=module,
+            fichier_instruction=fichier_instruction,
             enseignant=professeur
         )
 

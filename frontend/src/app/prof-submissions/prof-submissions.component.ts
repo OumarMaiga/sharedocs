@@ -5,6 +5,7 @@ import { ProfSubmissionService } from '../services/prof-submission.service';
 import { ProfNavbarComponent } from '../components/prof-navbar/prof-navbar.component';
 import { ProfSidebarComponent } from '../components/prof-sidebar/prof-sidebar.component';
 import { FormsModule } from '@angular/forms';
+import { ProfModuleService } from '../services/prof-module.service';
 
 @Component({
   selector: 'app-prof-submissions',
@@ -15,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ProfSubmissionsComponent implements OnInit {
   moduleId!: number;
+  moduleDetails: any = null;
   submissions: any[] = [];
   isLoading = false;
   errorMessage: string = '';
@@ -22,10 +24,13 @@ export class ProfSubmissionsComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private profSubmissionService = inject(ProfSubmissionService);
 
+  private profModuleService = inject(ProfModuleService);
+  
   ngOnInit(): void {
     this.moduleId = Number(this.route.snapshot.paramMap.get('id'));
     if (this.moduleId) {
       this.fetchSubmissions(this.moduleId);
+      this.loadModuleDetails(this.moduleId);
     } else {
       this.errorMessage = "ID de module invalide.";
     }
@@ -49,6 +54,20 @@ export class ProfSubmissionsComponent implements OnInit {
           this.isLoading = false;
         }
       });
+  }
+
+  loadModuleDetails(id: number): void {
+    this.profModuleService.getModuleById(id).subscribe(
+      (data) => {
+        this.moduleDetails = data;
+        this.isLoading = false;
+      },
+      (error) => {
+        console.error("❌ Erreur lors du chargement des détails du module :", error);
+        this.errorMessage = "Impossible de charger les détails du module.";
+        this.isLoading = false;
+      }
+    );
   }
 
   noterSoumission(submission: any): void {
