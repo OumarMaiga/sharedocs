@@ -7,9 +7,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiTokenUrl = 'http://127.0.0.1:8000/api/token/';
-  private userInfoUrl = 'http://127.0.0.1:8000/api/utilisateur/me/';
-  private professorModulesUrl = 'http://127.0.0.1:8000/api/modules/professeur/';
+  private apiTokenUrl = 'http://192.168.2.67:8000/api/token/';
+  private userInfoUrl = 'http://192.168.2.67:8000/api/utilisateur/me/';
+  private professorModulesUrl = 'http://192.168.2.67:8000/api/modules/professeur/';
 
   constructor(private http: HttpClient, private router: Router) {}
 

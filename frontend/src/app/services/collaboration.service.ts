@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CollaborationService {
-  private apiUrl = 'http://127.0.0.1:8000/api/collaboration/';
+  private apiUrl = 'http://192.168.2.67:8000/api/collaboration/';
 
   constructor(private http: HttpClient) {}
 
