@@ -71,7 +71,7 @@ export class EtudiantProjetDetailComponent implements OnInit {
     // Méthode pour créer une URL sécurisée
     // Utilisez bypassSecurityTrustResourceUrl au lieu de bypassSecurityTrustUrl
   getSafeFileUrl(filePath: string): SafeResourceUrl {
-    const fullUrl = 'http://127.0.0.1:8000' + filePath;
+    const fullUrl = 'http://192.168.2.67:8000' + filePath;
     return this.sanitizer.bypassSecurityTrustResourceUrl(fullUrl);
   }
 }

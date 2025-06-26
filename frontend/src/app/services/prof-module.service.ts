@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProfModuleService {
-  private apiUrl = 'http://127.0.0.1:8000/api/modules/'; // ✅ Base de l'API
+  private apiUrl = 'http://192.168.2.67:8000/api/modules/'; // ✅ Base de l'API
 
   constructor(private http: HttpClient) {}
 

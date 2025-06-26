@@ -34,7 +34,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     soumissions_count: 0
   };
 
-  private apiUrl = 'http://127.0.0.1:8000/api/stats/';
+  private apiUrl = 'http://192.168.2.67:8000/api/stats/';
   chart: Chart | null = null;
   currentYear: number = new Date().getFullYear();
 

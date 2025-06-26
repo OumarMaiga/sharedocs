@@ -22,8 +22,8 @@ export class AdminModulesCreateComponent implements OnInit {
   classes: any[] = [];
 
   // Endpoints pour récupérer les listes (à adapter selon votre API)
-  private enseignantsUrl = 'http://127.0.0.1:8000/api/utilisateurs/?role=professeur';
-  private classesUrl = 'http://127.0.0.1:8000/api/classes/';
+  private enseignantsUrl = 'http://192.168.2.67:8000/api/utilisateurs/?role=professeur';
+  private classesUrl = 'http://192.168.2.67:8000/api/classes/';
 
   constructor(
     private fb: FormBuilder,

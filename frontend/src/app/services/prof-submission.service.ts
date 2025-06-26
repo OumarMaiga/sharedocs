@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ProfSubmissionService {
   // URL de base de votre API Django
-  private apiUrl = 'http://127.0.0.1:8000/api';
+  private apiUrl = 'http://192.168.2.67:8000/api';
 
   constructor(private http: HttpClient) {}
 

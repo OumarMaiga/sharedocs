@@ -6,7 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class NotificationService {
-  private apiUrl = 'http://127.0.0.1:8000/api/notifications/';
+  private apiUrl = 'http://192.168.2.67:8000/api/notifications/';
 
   constructor(private http: HttpClient) {}
 

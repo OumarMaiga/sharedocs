@@ -13,7 +13,7 @@ export interface Filiere {
   providedIn: 'root'
 })
 export class FilieresService {
-  private apiUrl = 'http://127.0.0.1:8000/api/filieres/';
+  private apiUrl = 'http://192.168.2.67:8000/api/filieres/';
 
   constructor(private http: HttpClient) {}
 

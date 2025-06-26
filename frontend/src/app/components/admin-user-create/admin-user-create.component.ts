@@ -21,7 +21,7 @@ export class AdminUserCreateComponent implements OnInit {
   classes: any[] = [];
 
   // Endpoint pour récupérer les classes (à adapter selon votre configuration)
-  private classesApiUrl = 'http://127.0.0.1:8000/api/classes/';
+  private classesApiUrl = 'http://192.168.2.67:8000/api/classes/';
 
   constructor(
     private fb: FormBuilder,

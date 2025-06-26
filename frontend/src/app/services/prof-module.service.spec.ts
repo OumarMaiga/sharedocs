@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProfModuleService {
-  private apiUrl = 'http://127.0.0.1:8000/api/modules/professeur/';
+  private apiUrl = 'http://192.168.2.67:8000/api/modules/professeur/';
 
   constructor(private http: HttpClient) {}
 
@@ -35,7 +35,7 @@ export class ProfModuleService {
 
   // ✅ Ajouter un support à un module
   ajouterSupport(moduleId: number, formData: FormData): Observable<any> {
-    const url = `http://127.0.0.1:8000/api/modules/${moduleId}/ajouter-support/`;
+    const url = `http://192.168.2.67:8000/api/modules/${moduleId}/ajouter-support/`;
     return this.http.post<any>(url, formData, { headers: this.getAuthHeaders() }).pipe(
       catchError(error => {
         console.error("❌ Erreur lors de l'ajout du support :", error);
