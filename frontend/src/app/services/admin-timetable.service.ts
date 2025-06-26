@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { API_BASE_URL } from '../../config/api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminTimetableService {
-  private apiUrl = 'http://192.168.2.67:8000/api';
+  private apiUrl = `${API_BASE_URL}/api`;
 
   constructor(private http: HttpClient) {}
 

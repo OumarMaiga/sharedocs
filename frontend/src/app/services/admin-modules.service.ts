@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { API_BASE_URL } from '../../config/api.config';
 
 export interface Module {
   id: number;
@@ -17,7 +18,7 @@ export interface Module {
 })
 export class AdminModulesService {
   // Utilisation de l'URL dédiée pour le superadmin
-  private apiUrl = 'http://192.168.2.67:8000/api/admin/modules/all/';
+  private apiUrl = `${API_BASE_URL}/api/admin/modules/all/`;
 
   constructor(private http: HttpClient) {}
 
@@ -36,7 +37,7 @@ export class AdminModulesService {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     // Ici, on suppose que le backend gère la création à l'URL /api/modules/
-    return this.http.post<Module>('http://192.168.2.67:8000/api/modules/', moduleData, { headers }).pipe(
+    return this.http.post<Module>(`${API_BASE_URL}/api/modules/`, moduleData, { headers }).pipe(
       tap(data => console.log('Module created:', data)),
       catchError(error => throwError(() => new Error('Error creating module')))
     );
@@ -46,7 +47,7 @@ export class AdminModulesService {
   updateModule(id: number, moduleData: any): Observable<Module> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<Module>(`http://192.168.2.67:8000/api/modules/${id}/`, moduleData, { headers }).pipe(
+    return this.http.put<Module>(`${API_BASE_URL}/modules/${id}/`, moduleData, { headers }).pipe(
       tap(data => console.log('Module updated:', data)),
       catchError(error => throwError(() => new Error('Error updating module')))
     );
@@ -56,7 +57,7 @@ export class AdminModulesService {
   deleteModule(id: number): Observable<any> {
     const token = localStorage.getItem('token') || '';
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete(`http://192.168.2.67:8000/api/modules/${id}/`, { headers }).pipe(
+    return this.http.delete(`${API_BASE_URL}/modules/${id}/`, { headers }).pipe(
       tap(data => console.log('Module deleted:', data)),
       catchError(error => throwError(() => new Error('Error deleting module')))
     );

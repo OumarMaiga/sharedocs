@@ -6,6 +6,7 @@ import { AdminUserService } from '../../services/admin-user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AdminSidebarComponent } from '../admin-sidebar/admin-sidebar.component';
 import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
+import { API_BASE_URL } from '../../../config/api.config';
 
 @Component({
   selector: 'app-admin-user-create',
@@ -21,7 +22,7 @@ export class AdminUserCreateComponent implements OnInit {
   classes: any[] = [];
 
   // Endpoint pour récupérer les classes (à adapter selon votre configuration)
-  private classesApiUrl = 'http://192.168.2.67:8000/api/classes/';
+  private classesApiUrl = `${API_BASE_URL}/api/classes/`;
 
   constructor(
     private fb: FormBuilder,

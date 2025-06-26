@@ -7,6 +7,7 @@ import { AdminModulesService } from '../../services/admin-modules.service';
 import { AdminSidebarComponent } from '../admin-sidebar/admin-sidebar.component';
 import { AdminNavbarComponent } from '../admin-navbar/admin-navbar.component';
 import { AdminUser, AdminUserService } from '../../services/admin-user.service';
+import { API_BASE_URL } from '../../../config/api.config';
 
 @Component({
   selector: 'app-admin-modules-create',
@@ -22,8 +23,8 @@ export class AdminModulesCreateComponent implements OnInit {
   classes: any[] = [];
 
   // Endpoints pour récupérer les listes (à adapter selon votre API)
-  private enseignantsUrl = 'http://192.168.2.67:8000/api/utilisateurs/?role=professeur';
-  private classesUrl = 'http://192.168.2.67:8000/api/classes/';
+  private enseignantsUrl = `${API_BASE_URL}/api/utilisateurs/?role=professeur`;
+  private classesUrl = `${API_BASE_URL}/api/classes/`;
 
   constructor(
     private fb: FormBuilder,

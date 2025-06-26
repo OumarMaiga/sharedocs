@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { API_BASE_URL } from '../../config/api.config';
 
 export interface Classe {
   id: number;
@@ -14,7 +15,7 @@ export interface Classe {
   providedIn: 'root'
 })
 export class ClassesService {
-  private apiUrl = 'http://192.168.2.67:8000/api/classes/';
+  private apiUrl = `${API_BASE_URL}/api/classes/`;
 
   constructor(private http: HttpClient) {}
 

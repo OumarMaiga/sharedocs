@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
+import { API_BASE_URL } from '../../config/api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  private apiUrl = 'http://192.168.2.67:8000/api/notifications/';
+  private apiUrl = `${API_BASE_URL}/api/notifications/`;
 
   constructor(private http: HttpClient) {}
 

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { API_BASE_URL } from '../../config/api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjetService {
-  private apiUrl = 'http://192.168.2.67:8000/api/'; // S'assure que l'URL API est correcte
+  private apiUrl = `${API_BASE_URL}/api/`; // S'assure que l'URL API est correcte
 
   constructor(private http: HttpClient) {}
 

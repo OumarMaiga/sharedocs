@@ -12,6 +12,7 @@ import { ClassesService } from '../../services/classes.service';
 import { ModulesService } from '../../services/modules.service';
 import { AdminUser, AdminUserService } from '../../services/admin-user.service';
 import { AdminModulesService } from '../../services/admin-modules.service';
+import { API_BASE_URL } from '../../../config/api.config';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -34,7 +35,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     soumissions_count: 0
   };
 
-  private apiUrl = 'http://192.168.2.67:8000/api/stats/';
+  private apiUrl = `${API_BASE_URL}/stats/`;
   chart: Chart | null = null;
   currentYear: number = new Date().getFullYear();
 

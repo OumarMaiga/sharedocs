@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { API_BASE_URL } from '../../config/api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiTokenUrl = 'http://192.168.2.67:8000/api/token/';
-  private userInfoUrl = 'http://192.168.2.67:8000/api/utilisateur/me/';
-  private professorModulesUrl = 'http://192.168.2.67:8000/api/modules/professeur/';
+  private apiTokenUrl = `${API_BASE_URL}/api/token/`;
+  private userInfoUrl = `${API_BASE_URL}/api/utilisateur/me/`;
+  private professorModulesUrl = `${API_BASE_URL}/api/modules/professeur/`;
 
   constructor(private http: HttpClient, private router: Router) {}
 

@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { API_BASE_URL } from '../../config/api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModulesService {
-  private apiUrl = 'http://192.168.2.67:8000/api/modules';
-  private projetUrl = 'http://192.168.2.67:8000/api/projets';
-  private soumissionUrl = 'http://192.168.2.67:8000/api/soumissions';
+  private apiUrl = `${API_BASE_URL}/api/modules`;
+  private projetUrl = `${API_BASE_URL}/api/projets`;
+  private soumissionUrl = `${API_BASE_URL}/api/soumissions`;
   private modulesUrl = this.apiUrl;
   constructor(private http: HttpClient) {}
 
@@ -116,7 +117,7 @@ export class ModulesService {
   }
 
   getEtudiantsParClasse(classeId: number): Observable<any[]> {
-    return this.http.get<any[]>(`http://192.168.2.67:8000/api/utilisateurs/?classe=${classeId}&role=etudiant`, 
+    return this.http.get<any[]>(`${API_BASE_URL}/utilisateurs/?classe=${classeId}&role=etudiant`, 
       { headers: this.getAuthHeaders() }).pipe(
       tap(data => console.log('📌 Étudiants récupérés:', data)),
       catchError(this.handleError)
@@ -147,7 +148,7 @@ export class ModulesService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
     // On appelle désormais /api/modules_search/?q=....
-    const url = `http://192.168.2.67:8000/api/modules_search/?q=${term}`;
+    const url = `${API_BASE_URL}/modules_search/?q=${term}`;
   
     return this.http.get<any[]>(url, { headers }).pipe(
       tap(data => console.log(`🔎 Résultats pour "${term}":`, data)),

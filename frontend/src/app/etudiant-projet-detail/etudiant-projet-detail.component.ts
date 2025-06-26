@@ -9,6 +9,7 @@ import { CommonModule, NgIf, NgFor } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl  } from '@angular/platform-browser';
 import { CollaborationComponent } from '../components/collaboration/collaboration.component'; // ✅ Importer le composant
 import { CollaborationService } from '../services/collaboration.service';
+import { API_BASE_URL } from '../../config/api.config';
 
 @Component({
   selector: 'app-etudiant-projet-detail',
@@ -71,7 +72,7 @@ export class EtudiantProjetDetailComponent implements OnInit {
     // Méthode pour créer une URL sécurisée
     // Utilisez bypassSecurityTrustResourceUrl au lieu de bypassSecurityTrustUrl
   getSafeFileUrl(filePath: string): SafeResourceUrl {
-    const fullUrl = 'http://192.168.2.67:8000' + filePath;
+    const fullUrl = `${API_BASE_URL}` + filePath;
     return this.sanitizer.bypassSecurityTrustResourceUrl(fullUrl);
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { API_BASE_URL } from '../../config/api.config';
 
 export interface Niveau {
   id: number;
@@ -13,7 +14,7 @@ export interface Niveau {
   providedIn: 'root'
 })
 export class NiveauxService {
-  private apiUrl = 'http://192.168.2.67:8000/api/niveaux/';
+  private apiUrl = `${API_BASE_URL}/api/niveaux/`;
 
   constructor(private http: HttpClient) {}
 
